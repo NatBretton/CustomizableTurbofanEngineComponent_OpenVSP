@@ -1,0 +1,629 @@
+// Author: Natalie Bretton //
+// Last Edited: 01.02.2024 //
+// Student at the University of Virginia //
+
+//==== Init Is Called Once During Each Custom Geom Construction  ============================//
+//==== Avoid Global Variables Unless You Want Shared With All Custom Geoms of This Type =====//
+void Init()
+{
+
+	double pi = 3.1415; //define pi as a variable for later use//
+	
+	//==== Test Parm Template  =====//
+	string spinnerLength = AddParm( PARM_DOUBLE_TYPE, "SpinnerLength", "Engine" );
+	SetParmValLimits( spinnerLength, 2.5, 0.001, 1.0e12 );
+    SetParmDescript( spinnerLength, "Length from fan face to tip of spinner" );
+
+	string spinnerDiameter = AddParm( PARM_DOUBLE_TYPE, "SpinnerDiameter", "Engine" );
+	SetParmValLimits( spinnerDiameter, 3.0, 0.001, 1.0e12 );
+    SetParmDescript( spinnerDiameter, "SpinnerDiameter" );
+
+	string fanDiameter = AddParm( PARM_DOUBLE_TYPE, "FanDiameter", "Engine" );
+	SetParmValLimits( fanDiameter, 10.0, 0.001, 1.0e12 );
+    SetParmDescript( fanDiameter, "Diameter of Fan" );
+	
+	string inletLength = AddParm( PARM_DOUBLE_TYPE, "InletLength", "Nacelle" );
+	SetParmValLimits( inletLength, 4.0, 0.001, 1.0e12 );
+    SetParmDescript( inletLength, "Length of inlet" );
+	
+	string innerCowlStrength = AddParm( PARM_DOUBLE_TYPE, "InnerCowlStrength", "Nacelle" );
+	SetParmValLimits( innerCowlStrength, 2.5, 0.001, 1.0e12 );
+    SetParmDescript( innerCowlStrength, "Strength of the inner inlet cowl" );
+	
+	string outerCowlStrength = AddParm( PARM_DOUBLE_TYPE, "OuterCowlStrength", "Nacelle" );
+	SetParmValLimits( outerCowlStrength, 2.5, 0.001, 1.0e12 );
+    SetParmDescript( outerCowlStrength, "Strength of outer inlet cowl" );
+	
+	string maxDiameter = AddParm( PARM_DOUBLE_TYPE, "MaxDiameter", "Nacelle" );
+	SetParmValLimits( maxDiameter, 12, 0.001, 1.0e12 );
+    SetParmDescript( maxDiameter, "Max diameter of nacelle" );
+	
+	string nacelleLength = AddParm( PARM_DOUBLE_TYPE, "NacelleLength", "Nacelle" );
+	SetParmValLimits( nacelleLength, 19, 0.001, 1.0e12 );
+    SetParmDescript( nacelleLength, "Total length of nacelle" );
+	
+	string maxDiamPos = AddParm( PARM_DOUBLE_TYPE, "MaxDiamPos", "Nacelle" );
+	SetParmValLimits( maxDiamPos, .4, 0, 1 );
+    SetParmDescript( maxDiamPos, "Position of max diameter" );
+	
+	string highlightDiameter = AddParm( PARM_DOUBLE_TYPE, "HighlightDiameter", "Nacelle" );
+	SetParmValLimits( highlightDiameter, 9.5, 0.001, 1.0e12 );
+    SetParmDescript( highlightDiameter, "Length of inlet" );
+	
+	string topFanExhaust = AddParm( PARM_DOUBLE_TYPE, "TopFanExhaust", "Nacelle" );
+	SetParmValLimits( topFanExhaust, 10.0, 0.001, 1.0e12 );
+    SetParmDescript( topFanExhaust, "Diameter of Top Fan Exhaust" );	
+	
+	string fanExhaustArea = AddParm( PARM_DOUBLE_TYPE, "FanExhaustArea", "Nacelle" );
+	SetParmValLimits( fanExhaustArea, 35, 0.001, 1.0e12 );
+    SetParmDescript( fanExhaustArea, "Area of Fan Exhaust" );
+	
+	string topCoreExhaust = AddParm( PARM_DOUBLE_TYPE, "TopCoreExhaust", "Nacelle" );
+	SetParmValLimits( topCoreExhaust, 10.0, 0.001, 1.0e12 );
+    SetParmDescript( topCoreExhaust, "Diameter of Top Core Exhaust" );	
+	
+	string coreExhaustArea = AddParm( PARM_DOUBLE_TYPE, "CoreExhaustArea", "Nacelle" );
+	SetParmValLimits( coreExhaustArea, 25, 0.001, 1.0e12 );
+    SetParmDescript( coreExhaustArea, "Area of Core Exhaust" );
+	
+	string engineLength = AddParm( PARM_DOUBLE_TYPE, "EngineLength", "Engine" );
+	SetParmValLimits( engineLength, 17.5, 0.001, 1.0e12 );
+    SetParmDescript( engineLength, "Length of Engine" );
+	
+	string coreNozzleLength = AddParm( PARM_DOUBLE_TYPE, "CoreNozzleLength", "Nacelle" );
+	SetParmValLimits( coreNozzleLength, 3.5, 0.001, 1.0e12 );
+    SetParmDescript( coreNozzleLength, "Length of Core Nozzle" );
+	
+	string spikeLength = AddParm( PARM_DOUBLE_TYPE, "SpikeLength", "Nacelle" );
+	SetParmValLimits( spikeLength, 3.0, 0.001, 1.0e12 );
+    SetParmDescript( spikeLength, "Length of End Spike/Turbine Plug" );
+	
+	string fanChokeArea = AddParm( PARM_DOUBLE_TYPE, "FanChokeArea", "Nacelle" );
+	SetParmValLimits( fanChokeArea, 25, 0.001, 1.0e12 );
+    SetParmDescript( fanChokeArea, "Area of Fan Choke" );
+	
+	string topFanChoke = AddParm( PARM_DOUBLE_TYPE, "TopFanChoke", "Nacelle" );
+	SetParmValLimits( topFanChoke, 10.0, 0.001, 1.0e12 );
+    SetParmDescript( topFanChoke, "Diameter of Top Fan Choke" );	
+
+	string botFanChoke = AddParm( PARM_DOUBLE_TYPE, "BotFanChoke", "Nacelle" );
+	SetParmValLimits( botFanChoke, 7.5, 0.001, 1.0e12 );
+    SetParmDescript( botFanChoke, "Diameter of Bottom Fan Choke" );
+	
+	string coreChokeArea = AddParm( PARM_DOUBLE_TYPE, "CoreChokeArea", "Nacelle" );
+	SetParmValLimits( coreChokeArea, 15, 0.001, 1.0e12 );
+    SetParmDescript( coreChokeArea, "Area of Core Choke" );
+	
+	string topCoreChoke = AddParm( PARM_DOUBLE_TYPE, "TopCoreChoke", "Nacelle" );
+	SetParmValLimits( topCoreChoke, 10.0, 0.001, 1.0e12 );
+    SetParmDescript( topCoreChoke, "Diameter of Top Core Choke" );	
+
+	string botCoreChoke = AddParm( PARM_DOUBLE_TYPE, "BotCoreChoke", "Nacelle" );
+	SetParmValLimits( botCoreChoke, 4.5, 0.001, 1.0e12 );
+    SetParmDescript( botCoreChoke, "Diameter of Bottom Core Choke" );
+	
+	string fanNozzleLength = AddParm( PARM_DOUBLE_TYPE, "FanNozzleLength", "Nacelle" );
+	SetParmValLimits( fanNozzleLength, 5.0, 0.001, 1.0e12 );
+    SetParmDescript( fanNozzleLength, "Length of Fan Nozzle" );
+	
+	string maxDiamStrengthL = AddParm( PARM_DOUBLE_TYPE, "MaxDiamStrengthL", "Nacelle" );
+	SetParmValLimits( maxDiamStrengthL, 10, 0.001, 1.0e12 );
+    SetParmDescript( maxDiamStrengthL, "Strength of Max Diameter Left" );
+	
+	string maxDiamStrengthR = AddParm( PARM_DOUBLE_TYPE, "MaxDiamStrengthR", "Nacelle" );
+	SetParmValLimits( maxDiamStrengthR, 10, 0.001, 1.0e12 );
+    SetParmDescript( maxDiamStrengthR, "Strength of Max Diameter Right" );
+	
+	string spinnerStrengthL = AddParm( PARM_DOUBLE_TYPE, "SpinnerStrengthL", "Nacelle" );
+	SetParmValLimits( spinnerStrengthL, 1, 0.001, 1.0e12 );
+    SetParmDescript( spinnerStrengthL, "Strength of Max Diameter Right" );
+	
+	string spinnerStrengthR = AddParm( PARM_DOUBLE_TYPE, "SpinnerStrengthR", "Nacelle" );
+	SetParmValLimits( spinnerStrengthR, 2.5, 0.001, 1.0e12 );
+    SetParmDescript( spinnerStrengthR, "Strength of Spinner Left" );
+	
+	string nacelleTrailingEdge = AddParm( PARM_DOUBLE_TYPE, "NacelleTrailingEdge", "Nacelle" );
+	SetParmValLimits( nacelleTrailingEdge, 2.5, 0.001, 1.0e12 );
+    SetParmDescript( nacelleTrailingEdge, "Strength of the trailing edge of the nacelle" );
+	
+	string coreNozzleAngle = AddParm( PARM_DOUBLE_TYPE, "CoreNozzleAngle", "Nacelle" );
+	SetParmValLimits( coreNozzleAngle, 15*(pi/180), 0.001, 1.0e12 );
+    SetParmDescript( coreNozzleAngle, "Angle of the core nozzle" );
+	
+	string turbinePlugAngle = AddParm( PARM_DOUBLE_TYPE, "TurbinePlugAngle", "Nacelle" );
+	SetParmValLimits( turbinePlugAngle, 15*(pi/180), 0.001, 1.0e12 );
+    SetParmDescript( turbinePlugAngle, "Angle of the turbine plug" );
+	
+	string inletRotation = AddParm( PARM_DOUBLE_TYPE, "InletRotation", "Nacelle" );
+	SetParmValLimits( inletRotation, 0, -45, 45 );
+    SetParmDescript( inletRotation, "Rotation of the inlet" );
+	
+	string inletExitStrength = AddParm( PARM_DOUBLE_TYPE, "InletExitStrength", "Nacelle" );
+	SetParmValLimits( inletExitStrength,1.0, .0001, 180);
+    SetParmDescript( inletExitStrength, "Strength of the right side of the inner inlet portion" );
+
+    //==== Add Cross Sections  =====//
+	string xsec_surf = AddXSecSurf();
+	AppendCustomXSec( xsec_surf, XS_POINT); //origin point//
+	AppendCustomXSec( xsec_surf, XS_CIRCLE );
+	AppendCustomXSec( xsec_surf, XS_CIRCLE );//spinner diameter//
+	AppendCustomXSec( xsec_surf, XS_CIRCLE );//front fan diameter//
+	AppendCustomXSec( xsec_surf, XS_CIRCLE );//front inlet portion//
+	AppendCustomXSec( xsec_surf, XS_CIRCLE );//center diameter//
+	AppendCustomXSec( xsec_surf, XS_CIRCLE );//back diameter//
+    AppendCustomXSec( xsec_surf, XS_CIRCLE );
+	AppendCustomXSec( xsec_surf, XS_CIRCLE );//fan exhaust face//
+	AppendCustomXSec( xsec_surf, XS_CIRCLE );
+	AppendCustomXSec( xsec_surf, XS_CIRCLE );//fan choke//
+	AppendCustomXSec( xsec_surf, XS_CIRCLE );//end core exhaust//
+	AppendCustomXSec( xsec_surf, XS_CIRCLE );
+	AppendCustomXSec( xsec_surf, XS_CIRCLE );//core exhaust face//
+	AppendCustomXSec( xsec_surf, XS_CIRCLE );
+	AppendCustomXSec( xsec_surf, XS_CIRCLE );//exhaust choke//
+	AppendCustomXSec( xsec_surf, XS_CIRCLE );
+	AppendCustomXSec( xsec_surf, XS_POINT );//right side point//
+	AppendCustomXSec( xsec_surf, XS_POINT );//extra points for subsurfaces//
+	AppendCustomXSec( xsec_surf, XS_POINT );
+	AppendCustomXSec( xsec_surf, XS_POINT );
+
+	//==== Set Some Decent Tess Vals ====//
+	string geom_id = GetCurrCustomGeom();
+	SetParmVal( GetParm( geom_id, "Tess_U",  "Shape" ), 30 );
+	SetParmVal( GetParm( geom_id, "Tess_W",  "Shape" ), 30 );
+
+
+	UpdateGeom(geom_id); // must be included. This creates the geometry, then 
+	// we can add subsurfs count the total number of cross sections, starting
+    // from zero (first cross section = 0). Should be based on the number of 
+	// 'AppendCustomXSec'
+	double numCrossSections = 20.;  
+
+	// list the cross sections numbers at which to place sub surfaces. These 
+	// are 1-indexed (first cross section = 1)
+	
+	array<double> U_coords = {2., 3., 4., 6., 7., 8., 9., 10., 11., 12., 13., 14., 15.};
+	
+	// variables are created prior to the for loop
+	
+	string ss_line_number = "";
+	string index = "";
+	
+	// for i = 0 until i is less than the number of subsections in U_coords
+	for (uint i = 0; i < U_coords.length(); i++) {
+		// add a subsection
+		AddSubSurf( geom_id, SS_LINE );  
+		index = i+1;  // have to turn this into a string
+		// set the U-location based on the number of cross sections
+		SetParmVal(geom_id, "Const_Line_Value", "SubSurface_" + index, U_coords[i] / numCrossSections);
+	}
+
+}
+
+
+//==== InitGui Is Called Once During Each Custom Geom Construction ====//
+void InitGui()
+{
+//ENGINE TAB//
+	
+	AddGui( GDEV_TAB, "Engine"  );
+	AddGui( GDEV_YGAP );
+	
+	AddGui( GDEV_DIVIDER_BOX, "Spinner" );
+	AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Length", "SpinnerLength", "Engine"  );
+	AddGui( GDEV_YGAP );
+	AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Diameter", "SpinnerDiameter", "Engine"  );
+	AddGui( GDEV_YGAP );
+	
+	AddGui( GDEV_DIVIDER_BOX, "Fan" );
+	AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Diameter", "FanDiameter", "Engine"  );
+	AddGui( GDEV_YGAP );
+	
+	//AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Area", "FanArea", "Engine"  );// //can be uncommented if the user wishes to control fan area/bypass ratio instead of fan diameter//
+	
+	AddGui( GDEV_DIVIDER_BOX, "Engine Design" );
+	AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Engine Length", "EngineLength", "Engine"  );
+	AddGui( GDEV_YGAP );
+	AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Turbine Diameter", "BotCoreChoke", "Nacelle"  );
+
+//NACELLLE TAB//
+	
+	AddGui( GDEV_TAB, "Nacelle"  );
+	
+	AddGui( GDEV_DIVIDER_BOX, "Inlet Design" );
+	AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Length", "InletLength", "Nacelle"  );
+	AddGui( GDEV_YGAP );
+	AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Diameter", "HighlightDiameter", "Nacelle"  );
+	AddGui( GDEV_YGAP );
+	AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Inlet Scarf", "InletRotation", "Nacelle"  );
+	AddGui( GDEV_YGAP );
+	
+	AddGui( GDEV_DIVIDER_BOX, "Body" );
+	
+	AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Max Diameter", "MaxDiameter", "Nacelle"  );
+	AddGui( GDEV_YGAP );
+	AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Nacelle Length", "NacelleLength", "Nacelle"  );
+	AddGui( GDEV_YGAP );
+	AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Max Diameter Position", "MaxDiamPos", "Nacelle"  );
+	AddGui( GDEV_YGAP );
+	
+	AddGui( GDEV_DIVIDER_BOX, "Fan Exhaust Area" );
+	
+	AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Face", "FanExhaustArea", "Nacelle"  );
+	
+	AddGui( GDEV_YGAP );
+	AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Choke", "FanChokeArea", "Nacelle"  );
+	AddGui( GDEV_YGAP );
+	AddGui( GDEV_YGAP );
+	AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Nozzle Length", "FanNozzleLength", "Nacelle"  );
+	AddGui( GDEV_YGAP );
+	
+	AddGui( GDEV_DIVIDER_BOX, " Core Exhaust Area" );
+	
+	AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Face", "CoreExhaustArea", "Nacelle"  );
+	AddGui( GDEV_YGAP );
+	AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Choke", "CoreChokeArea", "Nacelle"  );
+	AddGui( GDEV_YGAP );
+	AddGui( GDEV_YGAP );
+	AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Nozzle Length", "CoreNozzleLength", "Nacelle"  );
+	
+//STRENGTHS TAB//
+	
+	AddGui( GDEV_TAB, "Strengths"  );
+	AddGui( GDEV_DIVIDER_BOX, "Inlet" );
+	
+	AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Left Side", "InnerCowlStrength", "Nacelle"  );
+	AddGui( GDEV_YGAP );
+	AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Right Side", "OuterCowlStrength", "Nacelle"  );
+	AddGui( GDEV_YGAP );
+	AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Inner Inlet", "InletExitStrength", "Nacelle"  );
+	AddGui( GDEV_YGAP );
+		
+	AddGui( GDEV_DIVIDER_BOX, "Max Diameter" );
+	
+	AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Left Side", "MaxDiamStrengthL", "Nacelle"  );
+	AddGui( GDEV_YGAP );
+	AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Right Side", "MaxDiamStrengthR", "Nacelle"  );
+	AddGui( GDEV_YGAP );
+		
+	AddGui( GDEV_DIVIDER_BOX, "Spinner" );
+	
+	AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Left Side", "SpinnerStrengthL", "Nacelle"  );
+	AddGui( GDEV_YGAP );
+	AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Right Side", "SpinnerStrengthR", "Nacelle"  );
+	AddGui( GDEV_YGAP );
+		
+	AddGui( GDEV_DIVIDER_BOX, "Trailing Edge Angles" );
+	
+	AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Nacelle", "NacelleTrailingEdge", "Nacelle"  );
+	AddGui( GDEV_YGAP );
+	AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Core Nozzle", "CoreNozzleAngle", "Nacelle"  );
+	AddGui( GDEV_YGAP );
+    AddGui( GDEV_SLIDER_ADJ_RANGE_INPUT, "Turbine Plug", "TurbinePlugAngle", "Nacelle"  );
+} 
+
+//==== UpdateGui Is Called Every Time The Gui is Updated ====//
+void UpdateGui()
+{
+} 
+
+//==== UpdateSurf Is Called Every Time The Geom is Updated ====//
+void UpdateSurf()
+{
+	string geom_id = GetCurrCustomGeom();
+	
+	//set some  constants to be used later//
+	double pi = 3.1415;
+	double phi = 15*(pi/180);
+	double phi2 = phi;
+	double thickness = .15;
+	
+	
+
+//==== Get Curr Vals ====//
+
+// Define all of the variables as doubles//
+	
+	double spinnerLength_val = GetParmVal( GetParm( geom_id, "SpinnerLength", "Engine" ) );
+	double spinnerDiameter_val = GetParmVal( GetParm( geom_id, "SpinnerDiameter", "Engine" ) ); 
+	double fan_diameter = GetParmVal( GetParm( geom_id, "FanDiameter", "Engine" ) );
+	double inletLength_val = GetParmVal( GetParm( geom_id, "InletLength", "Nacelle" ) );
+	
+	//strength of the inlet on the left side//
+	double innerCowlStrength_val = GetParmVal( GetParm( geom_id, "InnerCowlStrength", "Nacelle" ) ); 
+	
+	//strength of the inlet on the right side//
+	double outerCowlStrength_val = GetParmVal( GetParm( geom_id, "OuterCowlStrength", "Nacelle" ) );
+	
+	//largest part of the nacell's diameter//
+	double maxDiameter_val = GetParmVal( GetParm( geom_id, "MaxDiameter", "Nacelle" ) );
+	
+	//length from inlet to end of nacelle//
+	double nacelleLength_val = GetParmVal( GetParm( geom_id, "NacelleLength", "Nacelle" ) );
+	
+	// location of max diameter on x axis - 0 is the highlight diameter/left side and 1 is the end of the nacelle//
+	double maxDiamSlider_val = GetParmVal( GetParm( geom_id, "MaxDiamPos", "Nacelle" ) );
+	
+	//equation to place the maximum diameter//
+	double maxDiamLoc_val = maxDiamSlider_val*(nacelleLength_val) - inletLength_val;
+	
+	double higlightDiameter_val = GetParmVal( GetParm( geom_id, "HighlightDiameter", "Nacelle" ) );
+	double fanExhaustArea_val = GetParmVal( GetParm( geom_id, "FanExhaustArea", "Nacelle" ) );
+	
+	//scarfing of the highlight crossection for the inlet//
+	double inletRotation_val = GetParmVal( GetParm( geom_id, "InletRotation", "Nacelle" ) );
+
+	
+	double coreExhaustArea_val = GetParmVal( GetParm( geom_id, "CoreExhaustArea", "Nacelle" ) );
+	double botCExhaustDiameter_val = GetParmVal( GetParm( geom_id, "BotCoreChoke", "Nacelle" ) );
+	
+	//equation for core exhaust area solved for diameter//
+	double topCExhaustDiameter_val = 2*sqrt((coreExhaustArea_val/pi)+(botCExhaustDiameter_val/2)**2);
+	
+	double engineLength_val = GetParmVal( GetParm( geom_id, "EngineLength", "Engine" ) );
+	double coreNozzleLength_val = GetParmVal( GetParm( geom_id, "CoreNozzleLength", "Nacelle" ) );
+	double fanChokeArea_val = GetParmVal( GetParm( geom_id, "FanChokeArea", "Nacelle" ) );
+	
+	//strength of the max diameter on the left side//
+	double maxDiameterStrength_valLeft = GetParmVal( GetParm( geom_id, "MaxDiamStrengthL", "Nacelle" ) );
+	
+	//strength of the max diameter on the right side//
+	double maxDiameterStrength_valRight = GetParmVal( GetParm( geom_id, "MaxDiamStrengthR", "Nacelle" ) );
+	
+	double spinnerStrength_left = GetParmVal( GetParm( geom_id, "SpinnerStrengthR", "Nacelle" ) );
+	double spinnerStrength_right = GetParmVal( GetParm( geom_id, "SpinnerStrengthL", "Nacelle" ) );
+	double nacelleTrailingEdge_strength = GetParmVal( GetParm( geom_id, "NacelleTrailingEdge", "Nacelle" ) );
+	
+	double turbinePlugAngle_val = GetParmVal( GetParm( geom_id, "TurbinePlugAngle", "Nacelle" ) );
+	double coreNozzleAngle_val = GetParmVal( GetParm( geom_id, "CoreNozzleAngle", "Nacelle" ) );
+	double coreChokeArea_val = GetParmVal( GetParm( geom_id, "CoreChokeArea", "Nacelle" ) );
+	double botCChokeDiameter_val = GetParmVal( GetParm( geom_id, "BotCoreChoke", "Nacelle" ) );
+	
+	//equation for the core choke solved for outer diameter//
+	double topCChokeDiameter_val = 2*sqrt((coreChokeArea_val/pi)+(botCChokeDiameter_val/2)**2);
+	double fanNozzleLength_val = GetParmVal( GetParm( geom_id, "FanNozzleLength", "Nacelle" ) );
+	double InletExitStrength_val = GetParmVal( GetParm( geom_id, "InletExitStrength", "Nacelle" ) );
+	
+	double spikeLength_val = (botCChokeDiameter_val/2)/tan(turbinePlugAngle_val);
+	
+	//v delta_x is the distance between the end of the nacelle and the end of the core//
+	//nacelle ends at nacelle-inlet//
+	double delta_x = engineLength_val-(nacelleLength_val-inletLength_val);
+	
+	double delta_y = (delta_x*tan(coreNozzleAngle_val));
+	double botChokeDiameter_val = topCChokeDiameter_val + 2*delta_y;
+	
+	//equation for fan choke solved for outer diameter//
+	double topChokeDiameter_val = 2*sqrt((fanChokeArea_val/pi)+(botChokeDiameter_val/2)**2);
+	double botExhaustDiameter_val = 2*sqrt((topChokeDiameter_val**2/4) - fanExhaustArea_val/pi);
+
+	
+//==== Get The XSec Surf ====//
+	string xsec_surf = GetXSecSurf( geom_id, 0 );
+
+	int cross_section_num = 0;
+	
+	//THIS IS WHERE ALL OF THE CROSSECTIONS ARE DEFEINED - STARTING AT THE SPINNER ON THE LEFT AND MOVING TO THE TIP OF THE TURBINE PLUG ON THE RIGHT//
+
+//starting point - at the tip of the spinner//
+	string xsec0 = GetXSec( xsec_surf, cross_section_num );
+    SetCustomXSecLoc( xsec0, vec3d( -1 * spinnerLength_val, 0.0, 0.0 ) );
+	SetXSecTanAngles( xsec0, XSEC_BOTH_SIDES, 90 );
+    SetXSecTanStrengths( xsec0, XSEC_BOTH_SIDES, 0.01 );
+	cross_section_num = cross_section_num + 1;
+	
+//small circular x-sec at the left tip of spinner//
+	string xsec1 = GetXSec( xsec_surf, cross_section_num );
+	SetParmVal( GetXSecParm( xsec1, "Circle_Diameter" ), thickness );
+    SetCustomXSecLoc( xsec1, vec3d( -1 * spinnerLength_val, 0.0, 0.0  ) );
+    SetXSecContinuity( xsec1, 0 );
+	SetXSecTanAngles( xsec1, XSEC_LEFT_SIDE, 90 );
+	SetXSecTanAngles( xsec1, XSEC_RIGHT_SIDE, 90 );
+    SetXSecTanStrengths( xsec1, XSEC_RIGHT_SIDE, spinnerStrength_left );
+	SetXSecTanStrengths( xsec1, XSEC_LEFT_SIDE, 0.01 );
+	cross_section_num = cross_section_num + 1;
+
+//spinner diameter - small diameter on the fan face//
+	string xsec2 = GetXSec( xsec_surf, cross_section_num );
+	SetParmVal( GetXSecParm( xsec2, "Circle_Diameter" ), spinnerDiameter_val );
+    SetCustomXSecLoc( xsec2, vec3d( 0.0, 0.0, 0.0  ) );
+    SetXSecContinuity( xsec2, 0 );
+	SetXSecTanAngles( xsec2, XSEC_LEFT_SIDE, 0.);
+	SetXSecTanAngles( xsec2, XSEC_RIGHT_SIDE, 90.);
+    SetXSecTanStrengths( xsec2, XSEC_LEFT_SIDE, spinnerStrength_right );
+	cross_section_num = cross_section_num + 1;
+	
+	
+//fan diameter on frontside//
+	string xsec3 = GetXSec( xsec_surf, cross_section_num );
+	SetParmVal( GetXSecParm( xsec3, "Circle_Diameter" ), fan_diameter );
+    SetCustomXSecLoc( xsec3, vec3d( 0.0, 0.0,  0.0 ) );
+    SetXSecContinuity( xsec3, 0 );
+	SetXSecTanAngles( xsec3, XSEC_LEFT_SIDE,90., 90., 90., 90. );
+	SetXSecTanAngles( xsec3, XSEC_RIGHT_SIDE, 180., 180., 180., 180. );
+    SetXSecTanStrengths( xsec3, XSEC_LEFT_SIDE, 1.0 );
+	SetXSecTanStrengths( xsec3, XSEC_RIGHT_SIDE, InletExitStrength_val );
+	cross_section_num = cross_section_num + 1;
+
+//highlight diameter - left tip of the inlet//
+	string xsec4 = GetXSec( xsec_surf, cross_section_num );
+	SetParmVal( GetXSecParm( xsec4, "Circle_Diameter" ), higlightDiameter_val);
+    SetCustomXSecLoc( xsec4, vec3d( -inletLength_val, 0.0,  0.0 ) );
+	SetCustomXSecRot( xsec4, vec3d( 0, 0, inletRotation_val));
+    SetXSecContinuity( xsec4, 0 );
+	SetXSecTanAngles( xsec4, XSEC_LEFT_SIDE, 90., 90., 90., 90. );
+	SetXSecTanAngles( xsec4, XSEC_RIGHT_SIDE, 90., 90., 90., 90.);
+	SetXSecTanStrengths( xsec4, XSEC_LEFT_SIDE, innerCowlStrength_val  );
+	SetXSecTanStrengths( xsec4, XSEC_RIGHT_SIDE, outerCowlStrength_val  );
+	cross_section_num = cross_section_num + 1;
+
+	
+//center diameter - max diameter of nacelle//
+	string xsec5 = GetXSec( xsec_surf, cross_section_num );
+	SetParmVal( GetXSecParm( xsec5, "Circle_Diameter" ), maxDiameter_val );
+    SetCustomXSecLoc( xsec5, vec3d( maxDiamLoc_val, 0.0,  0.0 ) );
+    SetXSecContinuity( xsec5, 0 );
+	SetXSecTanAngles( xsec5, XSEC_LEFT_SIDE, 0., 0., 0., 0. );
+	SetXSecTanAngles( xsec5, XSEC_RIGHT_SIDE, 0., 0, 0., 0.);
+    SetXSecTanStrengths( xsec5, XSEC_LEFT_SIDE, maxDiameterStrength_valLeft );
+	SetXSecTanStrengths( xsec5, XSEC_RIGHT_SIDE, maxDiameterStrength_valRight );
+	cross_section_num = cross_section_num + 1;
+	
+	
+//Upper right end of nacelle//
+	string xsec6 = GetXSec( xsec_surf, cross_section_num );
+	SetParmVal( GetXSecParm( xsec6, "Circle_Diameter" ), topChokeDiameter_val+thickness );
+    SetCustomXSecLoc( xsec6, vec3d( nacelleLength_val-inletLength_val, 0.0,  0.0 ) );
+    SetXSecContinuity( xsec6, 0 );
+	SetXSecTanAngles( xsec6, XSEC_LEFT_SIDE, -15., -15., -15., -15. );
+	SetXSecTanAngles( xsec6, XSEC_RIGHT_SIDE, -90., -90., -90., -90.);
+    SetXSecTanStrengths( xsec6, XSEC_LEFT_SIDE, nacelleTrailingEdge_strength );
+	SetXSecTanStrengths( xsec6, XSEC_RIGHT_SIDE, .1 );
+	cross_section_num = cross_section_num + 1;
+	
+//Lower right end of nacelle//
+	string xsec7 = GetXSec( xsec_surf, cross_section_num );
+	SetParmVal( GetXSecParm( xsec7, "Circle_Diameter" ), topChokeDiameter_val );
+    SetCustomXSecLoc( xsec7, vec3d( nacelleLength_val-inletLength_val, 0.0,  0.0 ) );
+    SetXSecContinuity( xsec7, 0 );
+	SetXSecTanAngles( xsec7, XSEC_LEFT_SIDE, -90., -90., -90., -90. );
+	SetXSecTanAngles( xsec7, XSEC_RIGHT_SIDE, 180., 180., 180., 180.);
+    SetXSecTanStrengths( xsec7, XSEC_BOTH_SIDES, .25 );
+	cross_section_num = cross_section_num + 1;
+	
+//Upper fan exhaust face//
+	string xsec8 = GetXSec( xsec_surf, cross_section_num );
+	SetParmVal( GetXSecParm( xsec8, "Circle_Diameter" ), topChokeDiameter_val );
+    SetCustomXSecLoc( xsec8, vec3d( nacelleLength_val-inletLength_val-fanNozzleLength_val, 0.0,  0.0 ) );
+    SetXSecContinuity( xsec8, 0 );
+	SetXSecTanAngles( xsec8, XSEC_LEFT_SIDE, 180., 180., 180., 180. );
+	SetXSecTanAngles( xsec8, XSEC_RIGHT_SIDE, -90., -90., -90., -90.);
+    SetXSecTanStrengths( xsec8, XSEC_BOTH_SIDES, .25);
+	cross_section_num = cross_section_num + 1;
+	
+//Lower fan exhaust face//
+	string xsec9 = GetXSec( xsec_surf, cross_section_num);
+	SetParmVal( GetXSecParm( xsec9, "Circle_Diameter" ), botExhaustDiameter_val );
+    SetCustomXSecLoc( xsec9, vec3d( nacelleLength_val-inletLength_val-fanNozzleLength_val, 0.0,  0.0 ) );
+    SetXSecContinuity( xsec9, 0 );
+	SetXSecTanAngles( xsec9, XSEC_LEFT_SIDE, -90., -90., -90., -90. );
+	SetXSecTanAngles( xsec9, XSEC_RIGHT_SIDE, 0., 0., 0., 0.);
+    SetXSecTanStrengths( xsec9, XSEC_BOTH_SIDES, .25 );
+	cross_section_num = cross_section_num + 1;
+	
+//fan choke//
+	string xsec10 = GetXSec( xsec_surf, cross_section_num);
+	SetParmVal( GetXSecParm( xsec10, "Circle_Diameter" ), topCChokeDiameter_val + 2*delta_y );
+    SetCustomXSecLoc( xsec10, vec3d( nacelleLength_val-inletLength_val, 0.0,  0.0 ) );
+    SetXSecContinuity( xsec10, 0 );
+	SetXSecTanAngles( xsec10, XSEC_LEFT_SIDE, -90., -90., -90., -90. );
+	SetXSecTanAngles( xsec10, XSEC_RIGHT_SIDE, 0., 0., 0., 0.);
+    SetXSecTanStrengths( xsec10, XSEC_BOTH_SIDES, .25 );
+	cross_section_num = cross_section_num + 1;
+	
+//Upper end of core exhaust//
+	string xsec11 = GetXSec( xsec_surf, cross_section_num );
+	SetParmVal( GetXSecParm( xsec11, "Circle_Diameter" ), topCChokeDiameter_val+thickness );
+    SetCustomXSecLoc( xsec11, vec3d(engineLength_val, 0.0,  0.0 ) );//engine length+core nozzle length//
+    SetXSecContinuity( xsec11, 0 );
+	SetXSecTanAngles( xsec11, XSEC_LEFT_SIDE, coreNozzleAngle_val*(180/pi) );
+	SetXSecTanAngles( xsec11, XSEC_RIGHT_SIDE, -90., -90., -90., -90.);
+    SetXSecTanStrengths( xsec11, XSEC_BOTH_SIDES, .25 );
+	cross_section_num = cross_section_num + 1;
+	
+//Lower end of core exhaust//
+	string xsec12 = GetXSec( xsec_surf, cross_section_num );
+	SetParmVal( GetXSecParm( xsec12, "Circle_Diameter" ), topCChokeDiameter_val );
+    SetCustomXSecLoc( xsec12, vec3d( engineLength_val, 0.0,  0.0 ) );
+    SetXSecContinuity( xsec12, 0 );
+	SetXSecTanAngles( xsec12, XSEC_LEFT_SIDE, -90., -90., -90., -90. );
+	SetXSecTanAngles( xsec12, XSEC_RIGHT_SIDE, 180., 180., 180., 180.);
+    SetXSecTanStrengths( xsec12, XSEC_BOTH_SIDES, .25 );
+	cross_section_num = cross_section_num + 1;
+	
+	
+//Upper core exhaust face//
+	string xsec13 = GetXSec( xsec_surf, cross_section_num );
+	SetParmVal( GetXSecParm( xsec13, "Circle_Diameter" ), topCExhaustDiameter_val );
+    SetCustomXSecLoc( xsec13, vec3d( engineLength_val-coreNozzleLength_val, 0.0,  0.0 ) ); 
+    SetXSecContinuity( xsec13, 0 );
+	SetXSecTanAngles( xsec13, XSEC_LEFT_SIDE, 180., 180., 180., 180. );
+	SetXSecTanAngles( xsec13, XSEC_RIGHT_SIDE, -90., -90., -90., -90.);
+    SetXSecTanStrengths( xsec13, XSEC_BOTH_SIDES, .25 );
+	cross_section_num = cross_section_num + 1;
+	
+//Lower core exhaust face//
+	string xsec14 = GetXSec( xsec_surf, cross_section_num );
+	SetParmVal( GetXSecParm( xsec14, "Circle_Diameter" ), botCExhaustDiameter_val );
+    SetCustomXSecLoc( xsec14, vec3d( engineLength_val-coreNozzleLength_val, 0.0,  0.0 ) );
+    SetXSecContinuity( xsec14, 0 );
+	SetXSecTanAngles( xsec14, XSEC_LEFT_SIDE, -90., -90., -90., -90. );
+	SetXSecTanAngles( xsec14, XSEC_RIGHT_SIDE, 0., 0., 0., 0.);
+    SetXSecTanStrengths( xsec14, XSEC_BOTH_SIDES, 2.00 );
+	cross_section_num = cross_section_num + 1;
+	
+	
+//exhaust choke//
+	string xsec15 = GetXSec( xsec_surf, cross_section_num );
+	SetParmVal( GetXSecParm( xsec15, "Circle_Diameter" ), botCChokeDiameter_val );
+    SetCustomXSecLoc( xsec15, vec3d( engineLength_val, 0.0,  0.0 ) );
+    SetXSecContinuity( xsec15, 0 );
+	SetXSecTanAngles( xsec15, XSEC_LEFT_SIDE, 0., 0., 0., 0. );
+	SetXSecTanAngles( xsec15, XSEC_RIGHT_SIDE, 0., 0., 0., 0.);
+    SetXSecTanStrengths( xsec15, XSEC_BOTH_SIDES, 2.00 );
+	cross_section_num = cross_section_num + 1;
+	
+//Tip of turbine plug - defined as small circle//
+	string xsec16 = GetXSec( xsec_surf, cross_section_num );
+	SetParmVal( GetXSecParm( xsec16, "Circle_Diameter" ), thickness );
+    SetCustomXSecLoc( xsec16, vec3d( engineLength_val+spikeLength_val, 0.0, 0.0  ) );
+    SetXSecContinuity( xsec16, 0 );
+	SetXSecTanAngles( xsec16, XSEC_LEFT_SIDE, turbinePlugAngle_val*(180/pi) );
+	SetXSecTanAngles( xsec16, XSEC_RIGHT_SIDE, -90 );
+    SetXSecTanStrengths( xsec16, XSEC_LEFT_SIDE, 0.1);
+	SetXSecTanStrengths( xsec16, XSEC_RIGHT_SIDE, 0.1);
+	cross_section_num = cross_section_num + 1;
+	
+//right side point (center of crossection 16)//
+	string xsec17 = GetXSec( xsec_surf, cross_section_num );
+    SetCustomXSecLoc( xsec17, vec3d( engineLength_val+spikeLength_val, 0.0, 0.0 ) );//core nozzle length+enginer length+spike
+	SetXSecTanAngles( xsec17, XSEC_BOTH_SIDES, -90 );
+    SetXSecTanStrengths( xsec17, XSEC_BOTH_SIDES, 0);
+	cross_section_num = cross_section_num + 1;
+	
+//extra points for subsurfaces//
+	string xsec18 = GetXSec( xsec_surf, cross_section_num );
+    SetCustomXSecLoc( xsec18, vec3d( engineLength_val+spikeLength_val, 0.0, 0.0 ) );//core nozzle length+enginer length+spike
+	SetXSecTanAngles( xsec18, XSEC_BOTH_SIDES, -90 );
+    SetXSecTanStrengths( xsec18, XSEC_BOTH_SIDES, 0);
+	cross_section_num = cross_section_num + 1;
+	
+	string xsec19 = GetXSec( xsec_surf, cross_section_num );
+    SetCustomXSecLoc( xsec19, vec3d( engineLength_val+spikeLength_val, 0.0, 0.0 ) );//core nozzle length+enginer length+spike
+	SetXSecTanAngles( xsec19, XSEC_BOTH_SIDES, -90 );
+    SetXSecTanStrengths( xsec19, XSEC_BOTH_SIDES, 0);
+	cross_section_num = cross_section_num + 1;
+	
+	string xsec20 = GetXSec( xsec_surf, cross_section_num );
+    SetCustomXSecLoc( xsec20, vec3d( engineLength_val+spikeLength_val, 0.0, 0.0 ) );//core nozzle length+enginer length+spike
+	SetXSecTanAngles( xsec20, XSEC_BOTH_SIDES, -90 );
+    SetXSecTanStrengths( xsec20, XSEC_BOTH_SIDES, 0);
+	cross_section_num = cross_section_num + 1;
+	
+	
+	SkinXSecSurf();
+}
+
+//==== Optional Scale =====//
+void Scale(double curr_scale )
+{
+    string geom_id = GetCurrCustomGeom();
+
+    string len_id    = GetParm( geom_id, "Length", "Engine" );
+    string dia_id   = GetParm( geom_id, "Diameter", "Engine" );
+
+    double len  = curr_scale*GetParmVal( len_id );
+    double dia = curr_scale*GetParmVal( dia_id );
+
+    SetParmVal( len_id, len );
+    SetParmVal( dia_id, dia );
+}
